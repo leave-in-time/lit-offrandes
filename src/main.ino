@@ -16,10 +16,10 @@ MFRC522 nfc1(SS1_PIN, RST_PIN);
 MFRC522 nfc2(SS2_PIN, RST_PIN);
 MFRC522 nfc3(SS3_PIN, RST_PIN);
 MFRC522 nfc4(SS4_PIN, RST_PIN);
-Reader reader1(nfc1, RST_PIN, "ok");
-Reader reader2(nfc2, RST_PIN, "ok");
-Reader reader3(nfc3, RST_PIN, "ok");
-Reader reader4(nfc4, RST_PIN, "ok");
+Reader reader1(nfc1, RST_PIN, "o1");
+Reader reader2(nfc2, RST_PIN, "o2");
+Reader reader3(nfc3, RST_PIN, "o3");
+Reader reader4(nfc4, RST_PIN, "o4");
 
 // audio player
 #define RX_PIN 11

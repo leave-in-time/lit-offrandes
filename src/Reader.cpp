@@ -12,9 +12,11 @@ void Reader::init() {
 bool Reader::check() {
 	// turn reader on
 	digitalWrite(_rst, HIGH);
+	// delay(20);
 	_nfc.PCD_Init();
+	// delay(20);
 	// causes weird results
-	// _nfc.PCD_SetAntennaGain(_nfc.RxGain_max);
+	// _nfc.PCD_SetAntennaGain(_nfc.RxGain_38dB);
 	if (!_nfc.PICC_IsNewCardPresent()) return false;
 	if (!_nfc.PICC_ReadCardSerial()) { Serial.println("failed to read card!"); return false; }
 	byte sector = 1;
@@ -35,6 +37,16 @@ bool Reader::check() {
 	_nfc.PCD_StopCrypto1();
 	// turn it off
 	digitalWrite(_rst, LOW);
+	// delay(10);
 	String result = String(String((char)buffer[11]) + String((char)buffer[12]));
+	if (result != _okWord) Serial.println(result);
 	return result == _okWord;
+}
+
+bool Reader::checkMultiple() {
+	int count = 0;
+	for (int i = 0; i < 2; i++) {
+		if (check()) count++;
+	}
+	return count > 0;
 }

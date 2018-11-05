@@ -7,9 +7,9 @@
 #define DEBUG 1
 
 // turn to 1 to activate sound play
-#define PLAYER 0
+#define PLAYER 1
 // turn to 1 for 4 rfid instead of 3
-#define FOUR_RFID 0
+#define FOUR_RFID 1
 
 // nfc readers
 #define RST_PIN 10
@@ -20,12 +20,12 @@
 MFRC522 nfc1(SS1_PIN, RST_PIN);
 MFRC522 nfc2(SS2_PIN, RST_PIN);
 MFRC522 nfc3(SS3_PIN, RST_PIN);
-Reader reader1(nfc1, RST_PIN, "b1");
-Reader reader2(nfc2, RST_PIN, "b2");
-Reader reader3(nfc3, RST_PIN, "b3");
+Reader reader1(nfc1, RST_PIN, "a1");
+Reader reader2(nfc2, RST_PIN, "a2");
+Reader reader3(nfc3, RST_PIN, "a3");
 #if FOUR_RFID
 MFRC522 nfc4(SS4_PIN, RST_PIN);
-Reader reader4(nfc4, RST_PIN, "b4");
+Reader reader4(nfc4, RST_PIN, "a4");
 #endif
 
 #if PLAYER
@@ -81,9 +81,9 @@ void loop() {
 
 boolean allReadersOk() {
 	#if FOUR_RFID
-	return reader1.check() && reader2.check() && reader3.check() && reader4.check();
+	return reader1.checkMultiple() && reader2.checkMultiple() && reader3.checkMultiple() && reader4.checkMultiple();
 	#else
-	return reader1.check() && reader2.check() && reader3.check();
+	return reader1.checkMultiple() && reader2.checkMultiple() && reader3.checkMultiple();
 	#endif
 }
 

@@ -16,6 +16,7 @@ class Reader {
 		Reader(MFRC522 nfc, int rst, String okWord);
 		void init();
 		bool check();
+		bool checkMultiple();
 };
 
 #endif
